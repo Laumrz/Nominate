@@ -1,0 +1,151 @@
+{% extends '../base.html' %}
+
+{% block title %}Detalles del Empleado{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="row justify-content-md-center">
+  <a
+    title="volver"
+    style="float: left; font-size: 25px"
+    href="{% url 'listar_empleados' %}">
+    <span><i class="bi bi-arrow-left-circle"></i></span>
+  </a>
+
+  <div class="col-md-8 mb-2">
+    <div class="card shadow">
+      <div class="card-body">
+        <h1>Resumen de Nómina</h1>
+        
+        
+
+        <br><br>
+        <p><strong>Datos del empleado</strong></p>
+
+        <!-- Primera tabla con los tres campos principales -->
+        <table class="table table-bordered">
+          <tr>
+            <td><strong>Nombre</strong></td>
+            <td>{{ nombre }} {{ apellido }}</td>
+          </tr>
+          <tr>
+            <td><strong>Tipo de Empleado</strong></td>
+            <td>{{ tipoEmpleado }}</td>
+          </tr>
+          <tr>
+            <td><strong>Salario</strong></td>
+            <td>{{ salario|floatformat:0 }}</td>
+          </tr>
+        </table>
+
+        <br><br>
+        <p><strong>Seguridad social</strong></p>
+    
+
+        <!-- Tabla con Aporte, Porcentaje y Valor -->
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th>Aporte</th>
+              <th>Porcentaje</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Salud</td>
+              <td>{{ porcentaje_salud }}%</td>
+              <td>{{ salud|floatformat:0 }}</td>
+            </tr>
+            <tr>
+              <td>Pensión</td>
+              <td>{{ porcentaje_pension }}%</td>
+              <td>{{ pension|floatformat:0 }}</td>
+            </tr>
+            {% if tipoEmpleado != 'Dependiente' %}
+            <tr>
+              <td>Caja de Compensación</td>
+              <td>{{ porcentaje_caja_compensacion|default:"-" }}%</td>
+              <td>{{ caja_compensacion|default:"-"|floatformat:0 }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+
+
+        <br><br>
+        <p><strong>ARL</strong></p>
+
+        <!-- Tabla para ARL y Nivel de Riesgo -->
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Nivel Riesgo ARL</th>
+                    <th>Porcentaje</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ nivelRiesgo }}</td>
+                    
+                    <td>
+                        {% if nivelRiesgo == 'Uno' %} 0.5%
+                        {% elif nivelRiesgo == 'Dos' %} 1%
+                        {% elif nivelRiesgo == 'Tres' %} 2%
+                        {% elif nivelRiesgo == 'Cuatro' %} 4%
+                        {% elif nivelRiesgo == 'Cinco' %} 6%
+                        {% else %} 0%
+                        {% endif %}
+                    </td>
+                    <td>{{ arl|floatformat:0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <!-- Tabla sin porcentaje para Cesantías, Interés Cesantías y Prima -->
+        {% if tipoEmpleado == 'Dependiente' %}
+
+        <br><br>
+        <p><strong>Pagos</strong></p>
+        
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Pagos</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cesantías</td>
+                    <td>{{ cesantias|floatformat:0 }}</td>
+                </tr>
+                <tr>
+                    <td>Interés Cesantías</td>
+                    <td>{{ interes_cesantias|floatformat:0 }}</td>
+                </tr>
+                <tr>
+                    <td>Prima</td>
+                    <td>{{ prima|floatformat:0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+
+
+        <hr />
+
+        <a class="mt-5" href="{% url 'listar_empleados' %}">
+          <i class="bi bi-arrow-left-circle"> Volver</i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

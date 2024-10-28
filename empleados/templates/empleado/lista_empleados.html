@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %}Registrar Empleado{% endblock %}
+<!---->
+{%block content %} {% load static %}
+
+<body>
+
+  <header>
+      <div class="header__superior">
+     
+      </div>
+      
+
+      <div class="container__menu">
+          <div class="menu">
+              <input type="checkbox" id="check__menu">
+              <label for="check__menu" id="label__check">
+                  <i class="fas fa-bars icon__menu"></i>
+              </label>
+              <nav>
+                  <ul>
+                      <img src="{% static 'images/logo.png' %}" width="100px" height="130px">
+                      <li><a href="{% url 'listar_empleados' %}" >Empleados</a></li>
+                      <li><a href="{% url 'inicio' %}">Registrar empleados</a></li>
+                      <li><a href="{% url 'homenominate' %}">Cerrar sesion</a></li>
+                      
+                  </ul>
+                  
+              </nav>
+          </div>
+    
+      </div>
+      
+      
+  </header>
+  
+ 
+
+ 
+<div class="containertabla">
+    
+  <div class="barra-table">
+    <h2 class="text-center text-uppercase">
+      <a
+        style="color: #14ad47; float: left; padding: 0px 10px 0px 0px"
+        href="{% url 'registrar_empleado' %}">
+        <span><i class="bi bi-arrow-left-circle"></i></span>
+      </a>
+      Empleados Registrados
+      <a
+        style="color: #14ad47; float: right; padding: 0px 10px 0px 0px"
+        href="{% url 'informe_empleado' %}"
+        title="Descargar Data de Empleados"
+        download="Informe">
+        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+      </a>
+      <hr />
+    </h2>
+  </div>
+</div>
+
+{% if empleados %}
+<div class="barra-table">
+  <table class="datos-table">
+    <thead>
+      <tr>
+        <th>Documento</th>
+        <th>Tipo</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>NIT Empresa</th>
+        <th>Fecha de Contratación</th>
+        <th>Tipo Empleado</th>
+        <th>Nivel de Riesgo</th>
+        <th>Salario</th>
+        <th class="text-center">Foto</th>
+        <th class="text-center">Acciones</th>
+        <th class="text-center">Nomina</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for empleado in empleados %}
+      <tr id="empleado_{{ empleado.id }}">
+        <td>{{ empleado.documento }}</td>
+        <td>{{ empleado.tipo_documento }}</td>
+        <td>{{ empleado.nombre_empleado }}</td>
+        <td>{{ empleado.apellido_empleado }}</td>
+        <td>{{ empleado.email_empleado }}</td>
+        <td>{{ empleado.telefono_empleado }}</td>
+        <td>{{ empleado.nit_empresa }}</td>
+        <td>{{ empleado.fecha_contratacion }}</td>
+        <td>{{ empleado.tipo_empleado }}</td>
+        <td>{{ empleado.nivel_riesgo }}</td>
+        <td>{{ empleado.salario_empleado }}</td>
+        <td class="text-center">
+          {% if empleado.foto_empleado %}
+          <!---->
+          {% if empleado.es_extension_valida %}
+          <img
+            class="foto_empleado"
+            src="{{ empleado.foto_empleado.url }}"
+            alt="Foto de {{ empleado.nombre_empleado }}"
+            width="50" />
+          {% else %}
+          <img
+            class="foto_empleado"
+            src="{% static 'imgs/empleado_defaul.jpg'%}"
+            alt="Sin foto"
+            width="50" />
+          {% endif %} {% endif %}
+        </td>
+        <td>
+          <span style="display: flex; justify-content: space-between">
+            <a
+              class="btn btn-info info_especial"
+              href="{% url 'detalles_empleado' empleado.id %}"
+              title="Ver Detalles del Empleado">
+              <i class="bi bi-person-bounding-box"></i>
+            </a>
+            <a
+              class="btn btn-success success_especial"
+              title="Editar datos del Empleado"
+              href="{% url 'view_form_update_empleado' empleado.id %}">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+
+            {% csrf_token %}
+            <button
+              class="btn btn-warning warning_especial"
+              title="Eliminar Empleado"
+              onclick="borrarEmpleado('{{ empleado.id }}')">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+
+          <td>
+            <button
+              class="btn btn-primary"
+              title="Calcular Nómina"
+              onclick="calcularNomina('{{ empleado.id }}')">
+              <i class="bi bi-calculator"></i>
+            </button>
+          </td>
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+
+{% else %}
+<p class="text-center">No hay empleados registrados 😭.</p>
+{% endif %} {% endblock %}
+<!---->
+{% block customJS %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  async function borrarEmpleado(idEmpleado) {
+    var confirmation = confirm(
+      "¿Estas seguro que deseas eliminar el empleado?"
+    );
+
+    if (confirmation) {
+      try {
+        let li = document.querySelector("#empleado_" + idEmpleado);
+
+        let csrfToken = "{{ csrf_token|escapejs }}";
+
+        // Realiza la solicitud POST utilizando Axios
+        const response = await axios({
+          method: "post",
+          url: "/eliminar-empleado/",
+          data: { idEmpleado },
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+        });
+
+        console.log(response.data);
+        console.log(response.data.resultado);
+        if (response.data.resultado === 1) {
+          alerta("El empleado fue eliminado correctamente 😏", 1);
+          li.remove();
+        } else {
+          console.log("Error al intentar borrar el empleado");
+        }
+      } catch (error) {
+        console.error("Error al realizar la solicitud:", error);
+      }
+    }
+  }
+
+
+  
+  function alerta(msj, tipo_msj) {
+    const divExistente = document.querySelector(".alert");
+    if (divExistente) {
+      divExistente.remove();
+    }
+
+  
+    // Crear un nuevo div para la alerta
+    const divRespuesta = document.createElement("div");
+    divRespuesta.classList.add("col-md-11");
+
+    divRespuesta.innerHTML = `
+      <div class="alert ${
+        tipo_msj == 1 ? "alert-success" : "alert-danger"
+      }  alert-dismissible text-center" role="alert">
+        ${msj}
+      </div>
+  `;
+
+    setTimeout(function () {
+      divRespuesta.innerHTML = "";
+    }, 8000);
+
+    const container = document.querySelector(".row");
+    container.insertAdjacentElement("beforeend", divRespuesta);
+  }
+
+
+  function calcularNomina(idEmpleado) {
+    window.location.href = `/calcular-nomina/${idEmpleado}/`;
+}
+
+</script>
+{% endblock %}

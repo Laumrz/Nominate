@@ -1,0 +1,175 @@
+{% extends '../base2.html' %}
+<!---->
+{% block title %}Detalles del Empleado{% endblock %}
+<!---->
+{% load static %}
+<!---->
+{% block content %}
+
+<body>
+
+    <!--Header - Menu-->
+
+    <header>
+        <div class="container__header">
+            <div class="logo">
+                <a href="index.php">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="{% url 'listar_empleados' %}">Sobre</a></li>
+                        <li><a href="{% url 'listar_empleados' %}">Servicios</a></li>
+                        <li><a href="{% url 'listar_empleados' %}">Calculadora</a></li>
+                        <li><a href="#">Contactos</a></li>
+                    </ul>
+                </nav>
+
+
+                <div class="socialMedia">
+                    <a href="#">
+                        <img src="{% static 'images/facebook.png' %}" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'images/instagram.png' %}" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'images/twitter.png' %}" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'images/youtube.png' %}" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <img src="{% static 'images/image.png' %}" alt="" class="full-width-image">
+    <div class="image-text">
+        <h1>NOMINATE</h1>
+        <p>Si necesitas liquidar tus aportes, acá encuentras todos los recursos que te ayudarán a cumplir con esta obligación de una manera muy sencilla. ¡Aprovéchalos!</p>
+        <br><br>
+        <a href="{% url 'listar_empleados' %}" class="button">Empezar</a>
+    </div>
+
+    <main>
+        
+    
+
+
+        <!--Generador de confianza-->
+
+        <div class="container__trust container__card-primary" id="inicio">
+            <div class="trust card__primary">
+                <div class="text__trust text__card-primary">
+                    <p>GENERA CONFIANZA PRIMERO</p>
+                    <h1>Controla tu empresa con un solo toque</h1>
+                </div>
+                <div class="container__trust container__box-cardPrimary">
+                    <div class="card__trust box__card-primary">
+                        <img src="{% static 'images/anchor.png' %}" alt="">
+                        <h2>Control de nomina completo</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                    </div>
+                    <div class="card__trust box__card-primary">
+                        <img src="{% static 'images/archive.png' %}" alt="">
+                        <h2>Informes y análisis críticos</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                    </div>
+                    <div class="card__trust box__card-primary">
+                        <img src="{% static 'images/user.png' %}" alt="">
+                        <h2>Satisfacción del usuario garantizada</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Sobre nosotros - Nuestro equipo-->
+
+        <div class="container__about div__offset" id="sobre_nosotros">
+            <div class="about">
+                <div class="text__about">
+                    <h1>Equipo innovador</h1>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepto teur sint occae cat cupidatat non proident, sunt in culpa qui oficia deser unt mollit anim id est laborum.</p>
+                    <a href="#" class="btn__text-about btn__text">Saber Más</a>
+                </div>
+
+                <div class="image__about">
+                    <img src="{% static 'images/about-1.png' %}" alt="">
+                    <img src="{% static 'images/about-2.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+
+        <!--SERVICIOS-->
+
+        <div class="container__service container__card-primary div__offset" id="servicios">
+            <div class="service card__primary">
+                <div class="text__service text__card-primary">
+                    <p>QUE HACEMOS</p>
+
+                </div>
+
+                <div class="container__
+                card-service container__box-cardPrimary">
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/grid.png' %}" alt="">
+                        <h2>Nomina</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/cart.png' %}" alt="">
+                        <h2>Novedades</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/camera.png' %}" alt="">
+                        <h2>Seguridad social</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/headphone.png' %}" alt="">
+                        <h2>Empresa</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/location.png' %}" alt="">
+                        <h2>Comprobantes</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="card__service box__card-primary">
+                        <img src="{% static 'images/file.png' %}" alt="">
+                        <h2>Gestion</h2>
+                        <p>Pore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exercitation</p>
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+{% endblock %}

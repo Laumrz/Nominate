@@ -1,0 +1,110 @@
+/* Fondo blanco en toda la página */
+body {
+    background-color: #ffffff !important;
+}
+  
+/* Líneas horizontales en lila */
+hr {
+    color: #5874f0a2 !important; /* Lila */
+}
+  
+
+
+/* Radio button y checkboxes en lila */
+.form-check-input:checked {
+    background-color: #5874f0a2 !important; /* Lila */
+    border-color: #5874f0a2 !important; /* Lila */
+}
+  
+/* Botón principal en lila */
+.btn-primary {
+    background-color: #5874f0a2 !important; /* Lila */
+    border: #5874f0a2 !important; /* Lila */
+}
+  
+/* Botón hover */
+.btn-primary:hover {
+    opacity: 0.9;
+}
+  
+/* Formulario con padding */
+form {
+    padding: 0px 50px !important;
+}
+  
+/* Estilos para la tabla */
+table {
+    width: 98% !important;
+    margin: 0 auto !important;
+}
+  
+/* Botón flotante en la parte inferior derecha */
+#bottomRightButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #5874f0a2 !important; /* Lila */
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+  
+/* Iconos en lila */
+.bi-arrow-left-circle {
+    padding: 0px 40px;
+    color: #5874f0a2 !important; /* Lila */
+}
+  
+.bi-arrow-left-circle:hover {
+    color: #4c61d9 !important; /* Lila oscuro */
+    cursor: pointer;
+}
+  
+/* Evitar subrayado en enlaces */
+a {
+    text-decoration: none !important;
+}
+  
+/* Imagen del empleado centrada y con bordes redondeados */
+.foto_empleado {
+    border-radius: 5px;
+    display: flex;
+    margin: 0 auto;
+}
+  
+/* Tamaño y estilo de los íconos */
+.bi-trash,
+.bi-person-bounding-box,
+.bi-pencil-square {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+}
+  
+/* Sombra para los contenedores */
+.shadow {
+    border: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}
+  
+/* Botón de éxito especial en verde */
+.success_especial {
+    background-color: #09c046 !important; /* Verde */
+    border: 1px solid #09c046 !important; /* Verde */
+}
+  
+.success_especial:hover {
+    color: #333 !important;
+}
+  
+/* Hover en botones de advertencia */
+.warning_especial:hover {
+    color: red !important;
+}
+  
+/* Hover en botones de información */
+.info_especial:hover {
+    color: #fff !important;
+}

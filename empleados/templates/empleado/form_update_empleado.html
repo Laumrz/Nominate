@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %}Actualizar Datos del Empleado{% endblock %}
+<!---->
+{%block content %}
+{% load static %}
+
+
+<body>
+
+  <header>
+      <div class="header__superior">
+     
+      </div>
+      
+
+      <div class="container__menu">
+          <div class="menu">
+              <input type="checkbox" id="check__menu">
+              <label for="check__menu" id="label__check">
+                  <i class="fas fa-bars icon__menu"></i>
+              </label>
+              <nav>
+                  <ul>
+                      <img src="{% static 'images/logo.png' %}" width="100px" height="130px">
+                      <li><a href="{% url 'listar_empleados' %}" >Empleados</a></li>
+                      <li><a href="{% url 'inicio' %}">Registrar empleados</a></li>
+                      <li><a href="{% url 'homenominate' %}">Cerrar sesion</a></li>
+                      
+                  </ul>
+                  
+              </nav>
+          </div>
+    
+      </div>
+      
+      
+  </header>
+
+
+<div class="row justify-content-center">
+  <div class="col-md-12 mb-2">
+    <h1 class="text-center text-uppercase">
+      <a style="float: left" href="{% url 'inicio' %}">
+        <span><i class="bi bi-arrow-left-circle"></i></span>
+      </a>
+      Datos del Empleado
+      <hr />
+    </h1>
+  </div>
+</div>
+
+<div class="row justify-content-md-center">
+  <form
+    name="form_empleado"
+    method="POST"
+    action="{% url 'actualizar_empleado' empleado.id %}"
+    class="row justify-content-md-center g-3"
+    enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+
+   <!-- Documento -->
+    <div class="col-md-5">
+      <label for="documento" class="form-label">Documento</label>
+      <input
+        type="text"
+        name="documento"
+        value="{{ empleado.documento }}"
+        class="form-control"
+        required />
+    </div>
+
+    <!-- Tipo de Documento -->
+    <div class="col-md-5">
+      <label for="tipo_documento" class="form-label">Tipo de Documento</label>
+      <select name="tipo_documento" class="form-select" required>
+        {% for key, value in tipoDocumento %}
+          <option value="{{ key }}" {% if empleado.tipo_documento == key %}selected{% endif %}>
+            {{ value }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Fecha de Nacimiento -->
+    <div class="col-md-5">
+      <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+      <input
+        type="date"
+        name="fecha_nacimiento"
+        value="{{ empleado.fecha_nacimiento|date:'Y-m-d' }}"
+        class="form-control"
+        required />
+    </div>
+
+    <!-- Nombres y Apellidos -->
+    <div class="col-md-5">
+      <label for="nombre_empleado" class="form-label">Nombre del Empleado</label>
+      <input
+        type="text"
+        name="nombre_empleado"
+        value="{{ empleado.nombre_empleado }}"
+        class="form-control"
+        required />
+    </div>
+
+    <div class="col-md-5">
+      <label for="apellido_empleado" class="form-label">Apellido del Empleado</label>
+      <input
+        type="text"
+        name="apellido_empleado"
+        value="{{ empleado.apellido_empleado }}"
+        class="form-control"
+        required />
+    </div>
+
+    <!-- Email -->
+    <div class="col-md-5">
+      <label for="email_empleado" class="form-label">Email del Empleado</label>
+      <input
+        type="email"
+        name="email_empleado"
+        value="{{ empleado.email_empleado }}"
+        class="form-control"
+        required />
+    </div>
+
+    <!-- Edad -->
+    <div class="col-md-5">
+      <label for="edad_empleado" class="form-label"> Edad del Empleado </label>
+      <select name="edad_empleado" class="form-select" required>
+            {% for edad, edad_text in opciones_edad %}
+                <option value="{{ edad }}" {% if empleado.edad_empleado == edad %}selected{% endif %}>
+                    {{ edad_text }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+     <!-- Género -->
+    <div class="col-md-5">
+      <label for="genero_empleado">Género del Empleado</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="genero_empleado"
+          id="Masculino"
+          value="Masculino"
+          {% if empleado.genero_empleado == "Masculino" %}checked{% endif %}/>
+        <label class="form-check-label" for="Masculino">Masculino</label>
+    </div>
+      
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="genero_empleado"
+        value="Femenino"
+        id="Femenino"
+        {% if empleado.genero_empleado == "Femenino" %}checked{% endif %}/>
+      <label class="form-check-label" for="Femenino">Femenino</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="genero_empleado"
+        value="Otro"
+        id="Otro"
+        {% if empleado.genero_empleado == "Otro" %}checked{% endif %}/>
+      <label class="form-check-label" for="Otro">Otro</label>
+    </div>
+  </div>
+  
+   <!-- Teléfono -->
+    <div class="col-md-5">
+      <label for="telefono_empleado" class="form-label">Teléfono</label>
+      <input
+        type="text"
+        name="telefono_empleado"
+        value="{{ empleado.telefono_empleado }}"
+        class="form-control"
+        required />
+    </div>
+
+  <!-- Nit de Empresa -->
+    <div class="col-md-5">
+      <label for="nit_empresa" class="form-label">NIT de la Empresa</label>
+      <input
+        type="text"
+        name="nit_empresa"
+        value="{{ empleado.nit_empresa }}"
+        class="form-control" />
+    </div>
+
+  <!-- Fecha de Contratación -->
+    <div class="col-md-5">
+      <label for="fecha_contratacion" class="form-label">Fecha de Contratación</label>
+      <input
+        type="date"
+        name="fecha_contratacion"
+        value="{{ empleado.fecha_contratacion|date:'Y-m-d' }}"
+        class="form-control" />
+    </div>
+
+  <!-- Tipo de Empleado -->
+    <div class="col-md-5">
+      <label for="tipo_empleado" class="form-label">Tipo de Empleado</label>
+      <select name="tipo_empleado" class="form-select">
+        {% for key, value in tipoEmpleado %}
+          <option value="{{ key }}" {% if empleado.tipo_empleado == key %}selected{% endif %}>
+            {{ value }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+  <!-- Nivel de Riesgo -->
+    <div class="col-md-5">
+      <label for="nivel_riesgo" class="form-label">Nivel de Riesgo</label>
+      <select name="nivel_riesgo" class="form-select">
+        {% for key, value in nivelRiesgo %}
+          <option value="{{ key }}" {% if empleado.nivel_riesgo == key %}selected{% endif %}>
+            {{ value }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+  
+  
+  <!-- Salario -->
+    <div class="col-md-5">
+      <label for="salario_empleado" class="form-label">
+        Salario del Empleado
+      </label>
+      <input
+        type="text"
+        name="salario_empleado"
+        value="{{ empleado.salario_empleado }}"
+        class="form-control"
+        required />
+    </div>
+  
+    <!-- Foto -->
+    <div class="col-md-5">
+      <label for="" class="form-label"> Cargar foto del Empleado </label>
+      <input
+        type="file"
+        name="foto_empleado"
+        class="form-control form-control-sm"
+         />
+    </div>
+    <div class="col-md-5">
+        <label for="" class="form-label"> Foto actual del Empleado </label>
+        {% if empleado.foto_empleado %}
+          <!---->
+          {% if empleado.es_extension_valida %}
+          <img
+            class="foto_empleado"
+            src="{{ empleado.foto_empleado.url }}"
+            alt="Foto de {{ empleado.nombre_empleado }}"
+            width="50" />
+          {% else %}
+          <img
+            class="foto_empleado"
+            src="{% static 'imgs/empleado_defaul.jpg'%}"
+            alt="Sin foto"
+            width="50" />
+          {% endif %} {% endif %}
+    </div>
+
+    <div class="d-grid gap-2 col-8 mx-auto mt-5">
+      <button class="btn btn-primary" type="submit">
+        Actualizar Datos del Empleado
+      </button>
+    </div>
+  </form>
+</div>
+</body>
+
+{% endblock %}
